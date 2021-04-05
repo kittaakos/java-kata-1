@@ -98,7 +98,7 @@ public class Catalog extends ApplicationWindow {
         for (String text : Arrays.asList("Title", "Authors", "ISBN", "Details")) {
             TableColumn column = new TableColumn(viewer.getTable(), SWT.FILL | SWT.BORDER);
             column.setText(text);
-            column.setWidth(200);
+            column.setWidth(150);
         }
         viewer.setContentProvider(new CatalogContentProvider());
         viewer.setLabelProvider(new CatalogLabelProvider());
@@ -131,7 +131,7 @@ public class Catalog extends ApplicationWindow {
             viewer.refresh();
             for (int i = 0, n = viewer.getTable().getColumnCount(); i < n; i++) {
                 viewer.getTable().getColumn(i).pack(); // This is the hack!
-                viewer.getTable().getColumn(i).setWidth(200);
+                viewer.getTable().getColumn(i).setWidth(150);
             }
         });
     }
