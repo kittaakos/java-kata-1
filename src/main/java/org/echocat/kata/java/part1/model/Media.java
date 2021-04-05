@@ -6,7 +6,7 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
-public class Media {
+public abstract class Media {
 
     private final String isbn;
     private final String title;
