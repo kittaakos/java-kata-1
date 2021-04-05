@@ -50,3 +50,9 @@ local.properties
 .recommenders
 .project
 .factorypath
+
+### JDT LS
+bin
+
+### Gradle
+.gradle

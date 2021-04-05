@@ -1,0 +1,5 @@
+ext.versions = [
+    swt: '3.114.0',
+    jface: '3.22.100',
+    guava: '29.0-jre'
+]
