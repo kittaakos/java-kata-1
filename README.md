@@ -115,7 +115,7 @@ You have to implement an abstracted and simple library system.
    then on _Run_ or _Debug_.
 2. By command line:
    ```bash
-   ./mvnw package exec:java -Dexec.mainClass=org.echocat.kata.java.part1.MainApp
+   ./gradlew build run
    ```
 ##### How to run your tests?
 
@@ -124,7 +124,7 @@ You have to implement an abstracted and simple library system.
    then on _Run all tests_ or _Debug all tests_.
 2. By command line:
    ```bash
-   ./mvnw test
+   ./gradlew test
    ```
 
 ## License
