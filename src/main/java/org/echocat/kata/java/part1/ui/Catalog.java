@@ -77,7 +77,7 @@ public class Catalog {
             column.setText(text);
             column.setWidth(200);
         }
-        viewer.setContentProvider(new ArrayContentProvider());
+        viewer.setContentProvider(new CatalogContentProvider());
         viewer.setLabelProvider(new CatalogLabelProvider());
         viewer.setComparator(new ViewerComparator() {
             @Override
