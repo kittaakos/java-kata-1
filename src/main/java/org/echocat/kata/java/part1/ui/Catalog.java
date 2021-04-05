@@ -12,6 +12,7 @@ import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
+import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -19,30 +20,51 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
-public class Catalog {
+public class Catalog extends ApplicationWindow {
 
-    private final Store store = InMemoryStore.INSTANCE;
+    private final Store store;
 
-    public Catalog(Shell shell) {
-        Composite parent = new Composite(shell, SWT.NONE);
-        parent.setLayout(new GridLayout(2, false));
-        parent.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+    public Catalog() {
+        super(null);
+        this.store = InMemoryStore.INSTANCE;
+    }
 
-        ComboViewer combo = new ComboViewer(parent, SWT.SINGLE | SWT.READ_ONLY);
+    public void run() {
+        setBlockOnOpen(true);
+        open();
+        Display.getCurrent().dispose();
+    }
+
+    @Override
+    protected void configureShell(Shell shell) {
+        super.configureShell(shell);
+        shell.setSize(640, 480);
+        shell.setText("Magazines Kata");
+    }
+
+    @Override
+    protected Control createContents(Composite parent) {
+        Composite control = new Composite(parent, SWT.NONE);
+        control.setLayout(new GridLayout(2, false));
+        control.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+
+        ComboViewer combo = new ComboViewer(control, SWT.SINGLE | SWT.READ_ONLY);
         combo.setContentProvider(new ArrayContentProvider());
         combo.setInput(Store.FilterType.values());
         combo.getCombo().setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
         combo.getCombo().select(0);
 
-        Text text = new Text(parent, SWT.BORDER);
+        Text text = new Text(control, SWT.BORDER);
         text.setMessage("Type to filter...");
         text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 
-        TableViewer viewer = createTableViewer(parent);
+        TableViewer viewer = createTableViewer(control);
 
         combo.getCombo().addSelectionListener(new SelectionAdapter() {
 
@@ -67,6 +89,7 @@ public class Catalog {
 
         viewer.setInput(Collections.singleton("Loading data..."));
         search(viewer, null, null);
+        return control;
     }
 
     protected TableViewer createTableViewer(Composite parent) {
