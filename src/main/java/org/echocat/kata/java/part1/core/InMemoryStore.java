@@ -31,11 +31,6 @@ public enum InMemoryStore implements Store {
     INSTANCE;
 
     @Override
-    public CompletableFuture<Stream<Media>> search() {
-        return search(null, FilterType.ISBN);
-    }
-
-    @Override
     public CompletableFuture<Stream<Media>> search(String query, FilterType type) {
         return loadAll().thenApply(all -> {
             return all.filter(media -> {
